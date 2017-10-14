@@ -1,9 +1,7 @@
 var WHBrawl = WHBrawl || {};
-
+	
 var twitTime = 0;
     var mailTime = 0;
-    var hrcdirection = 1;
-    var djtdirection = -1;
     var hrcactive=true
 var djtactive=true
 //title screen
@@ -15,7 +13,8 @@ WHBrawl.Game.prototype = {
         jump = this.game.add.audio('jump');
         mailsound = this.game.add.audio('mailsound');
         victorysound = this.game.add.audio('victorysound');
-
+    hrcdirection = 1;
+    djtdirection = -1;
         //volumebutton = this.game.add.button(200, this.game.world.height - 500, 'volume', muteClick, this);
 
         music = this.game.add.audio('bgm');
@@ -51,10 +50,10 @@ WHBrawl.Game.prototype = {
 
         djt.body.bounce.y = 0.2;
         djt.body.gravity.y = 800;
-        djt.animations.add('idle', [0, 2], 4, true);
-        djt.animations.add('walk', [0, 1], 4, true);
-        djt.animations.add('fire', [0, 4], 4, true);
-                djt.animations.add('victory', [0, 3], 4, true);
+        djt.animations.add('idle', [0, 4], 4, true);
+        djt.animations.add('walk', [0, 1, 2, 3], 10, true);
+        djt.animations.add('fire', [0, 6], 8, true);
+                djt.animations.add('victory', [0, 5], 4, true);
 
         djt.anchor.set(0.5, 0.5);
         djt.scale.x = djtdirection;
@@ -97,6 +96,7 @@ WHBrawl.Game.prototype = {
         this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
         this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
         this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+	this.rightLight = this.game.imput.keyboard.addKey(Phaser.Keyboard.COMMA);
 
 
         this.aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
@@ -179,8 +179,7 @@ if(djtactive) {
 
             twits.fireOffset(djtdirection * 30, 0);
             twitTime = this.game.time.now + 500;
-
-        }
+	}
 
     }
     else {
@@ -326,21 +325,7 @@ if(hrc.health <=0){
     });
 
         }
-        else if (djt.health <= 20) {
-            djt.loadTexture('trump-4')
-        }
-        else if (djt.health <= 40) {
-            djt.loadTexture('trump-3')
-
-        }
-        else if (djt.health <= 60) {
-            djt.loadTexture('trump-2')
-
-        }
-        else if (djt.health <= 80) {
-            djt.loadTexture('trump-1')
-
-        }
+     
         djtHealth.setPercent(djt.health);
 
     }
